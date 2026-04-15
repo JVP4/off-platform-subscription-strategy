@@ -59,7 +59,7 @@ input[type=number]{width:72px;padding:6px 8px;border-radius:6px;border:1px solid
   <div style="margin-bottom:22px">
     <div class="tag">GU</div>
     <h1>Off-Platform Subscription Strategy</h1>
-    <p class="sub">12-month model with weekly drill-down (net-3 payment cycle)</p>
+    <p class="sub">12-month model with weekly drill-down</p>
   </div>
 
   <!-- Mode -->
@@ -419,7 +419,7 @@ function render(){
     `<button class="modetab ${S.mode==='test'?'on':''}" onclick="setMode('test')">Test Run (${S.testWks} wks)</button>
      <button class="modetab ${S.mode==='continuous'?'on':''}" onclick="setMode('continuous')">Continuous Growth (12 mo)</button>`;
   document.getElementById('modeDesc').textContent=S.mode==='test'
-    ?`Acquire for ${S.testWks} weeks then stop. Watch rebills recover the investment over 12 months.`
+    ?`Acquire for ${S.testWks} weeks. Watch rebills recover the investment over coming months.`
     :'Acquire every day for 12 months. Rebills from prior cohorts stack and eventually overtake acquisition costs.';
 
   // Tabs
