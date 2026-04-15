@@ -389,7 +389,9 @@ function renderCaps(){
         <th>Continuous BE</th><th>Cont. Cash</th><th>Fits Budget?</th>
       </tr></thead><tbody>${rows}</tbody></table>
     </div>
-    
+    <div class="hint">
+      <strong style="color:var(--gold)">Recommendation:</strong> Start with the highest cap that fits the budget. Get real rebill data by Week ${S.testWks+4}. If retention validates at ${S.m1ret}%+, scale the cap.
+    </div>`;
 }
 
 function renderTalking(testM){
