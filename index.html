@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sifts × GiddyUp – Off-Platform Subscription Strategy</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:#141210;color:#e8e4df;min-height:100vh}
+:root{--gold:#c9a96e;--green:#5a9e6f;--red:#e05555;--mono:'DM Mono',monospace}
+h1{font-size:26px;font-weight:700;letter-spacing:-0.02em;line-height:1.2;margin-bottom:5px}
+.wrap{max-width:1060px;margin:0 auto;padding:28px 16px}
+.tag{font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:.15em;font-weight:500;margin-bottom:7px}
+.sub{font-size:13px;color:#8a8a8a}
+.panel{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:18px}
+.cards{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:14px 16px;flex:1 1 130px;min-width:130px}
+.card-label{font-size:10px;color:#8a8a8a;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.card-val{font-size:20px;font-weight:700;font-family:var(--mono)}
+.card-sub{font-size:10px;color:#6a6a6a;margin-top:3px}
+.sidebar{flex:0 0 255px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:16px}
+.main{flex:1;min-width:0}
+.layout{display:flex;gap:20px;flex-wrap:wrap}
+.slider-row{margin-bottom:14px}
+.slider-label{display:flex;justify-content:space-between;margin-bottom:3px;font-size:12px;color:#8a8a8a}
+.slider-val{font-size:13px;font-weight:700;color:#e8e4df;font-family:var(--mono)}
+input[type=range]{width:100%;height:4px;border-radius:2px;outline:none;-webkit-appearance:none;background:rgba(255,255,255,.1);accent-color:var(--gold)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--gold);cursor:pointer;border:2px solid #141210}
+.divider{border-top:1px solid rgba(255,255,255,.06);margin:8px 0;padding-top:8px}
+.section-label{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;font-weight:500;margin-bottom:10px}
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.tab,.modetab{border:1px solid rgba(255,255,255,.08);border-radius:8px;background:transparent;color:#8a8a8a;cursor:pointer;font-family:inherit;font-size:12px;padding:9px 18px;transition:all .2s}
+.modetab{font-size:11px;padding:6px 14px;border-radius:6px}
+.tab.on,.modetab.on{background:rgba(201,169,110,.12);border-color:rgba(201,169,110,.3);color:var(--gold)}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;padding:8px 5px;color:#8a8a8a;border-bottom:1px solid rgba(255,255,255,.08);font-weight:500;text-transform:uppercase;letter-spacing:.06em;font-size:9px;white-space:nowrap}
+td{padding:6px 5px;border-bottom:1px solid rgba(255,255,255,.04);font-family:var(--mono);font-size:11px;white-space:nowrap}
+tr:hover td{background:rgba(255,255,255,.015)}
+.month-row{cursor:pointer}
+.exp-row td{background:rgba(201,169,110,.02);font-size:10px;color:#9a9a9a}
+.hint{background:rgba(201,169,110,.06);border:1px solid rgba(201,169,110,.15);border-radius:12px;padding:16px;font-size:12px;line-height:1.7;color:#b8a88a;margin-top:16px}
+.bar-area{display:flex;align-items:flex-end;gap:8px;height:180px;padding-top:30px}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end}
+.bar-lbl{font-size:9px;font-family:var(--mono);margin-bottom:4px;white-space:nowrap}
+.bar{width:100%;max-width:52px;border-radius:4px 4px 2px 2px}
+.bar-month{font-size:10px;margin-top:5px}
+input[type=number]{width:72px;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#e8e4df;font-family:var(--mono);font-size:12px;text-align:center;outline:none}
+.add-btn{padding:5px 12px;border-radius:6px;border:1px dashed rgba(255,255,255,.15);background:transparent;color:#8a8a8a;cursor:pointer;font-size:12px;font-family:inherit}
+.rm-btn{background:none;border:none;color:#6a6a6a;cursor:pointer;font-size:16px;line-height:1;padding:0 2px}
+.cap-inputs{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.cap-note{font-size:10px;color:#6a6a6a;margin-top:8px}
+.tbl-wrap{overflow-x:auto}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="wrap">
+  <div style="margin-bottom:22px">
+    <div class="tag">Sifts &times; GiddyUp</div>
+    <h1>Off-Platform Subscription Strategy</h1>
+    <p class="sub">12-month model with weekly drill-down (net-3 payment cycle)</p>
+  </div>
+
+  <!-- Mode -->
+  <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap" id="modeBtns"></div>
+  <div id="modeDesc" style="font-size:11px;color:#6a6a6a;margin-bottom:20px"></div>
+
+  <!-- Tabs -->
+  <div class="tabs" id="tabBtns"></div>
+
+  <div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="section-label">Assumptions</div>
+      <div id="sliders"></div>
+    </div>
+    <!-- Main -->
+    <div class="main" id="mainContent"></div>
+  </div>
+
+  <!-- Talking points -->
+  <div class="panel" style="margin-top:22px" id="talkingPoints"></div>
+</div>
+
+<script>
+const S = {
+  cpa:85, aov:70, rebill:49, cogs:8.5, ship:5, proc:3,
+  m1ret:70, churn:10, cap:50, budget:30000, testWks:4,
+  mode:'test', tab:'model',
+  expanded:{}, capInputs:[50,75,100,200,500]
+};
+
+function fmt(n){
+  const a=Math.abs(n),s=n<0?'-$':'$';
+  return s+a.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function fmtK(n){
+  const a=Math.abs(n),s=n<0?'-$':'$';
+  return a>=1000?s+(a/1000).toFixed(1)+'k':fmt(n);
+}
+function fmtI(n){return Math.round(n).toLocaleString('en-US')}
+
+function buildDays(cap,acquireDays){
+  const {cpa,aov,rebill,cogs,ship,proc,m1ret,churn}=S;
+  const pr=proc/100,m1=m1ret/100,cr=churn/100;
+  const days=[];let cum=0;
+  for(let d=0;d<365;d++){
+    const isA=d<acquireDays,nO=isA?cap:0;
+    let rO=0;
+    const maxC=Math.min(d,acquireDays);
+    for(let c=0;c<maxC;c++){
+      const ds=d-c;
+      if(ds>0&&ds%28===0){
+        const cy=ds/28;
+        rO+=cy===1?cap*m1:cap*m1*Math.pow(1-cr,cy-1);
+      }
+    }
+    rO=Math.round(rO);
+    const nR=nO*aov,rR=rO*rebill,tR=nR+rR;
+    const ac=nO*cpa,fu=(nO+rO)*(cogs+ship)+tR*pr,pr2=tR-ac-fu;
+    cum+=pr2;
+    days.push({d:d+1,isA,nO,rO,nR,rR,tR,ac,fu,profit:pr2,cum});
+  }
+  return days;
+}
+function toWeeks(days){
+  const w=[];
+  for(let i=0;i<52;i++){
+    const sl=days.slice(i*7,(i+1)*7);
+    if(!sl.length)break;
+    w.push({week:i+1,isA:sl.some(d=>d.isA),
+      nO:sl.reduce((s,d)=>s+d.nO,0),rO:sl.reduce((s,d)=>s+d.rO,0),
+      nR:sl.reduce((s,d)=>s+d.nR,0),rR:sl.reduce((s,d)=>s+d.rR,0),
+      tR:sl.reduce((s,d)=>s+d.tR,0),ac:sl.reduce((s,d)=>s+d.ac,0),
+      fu:sl.reduce((s,d)=>s+d.fu,0),profit:sl.reduce((s,d)=>s+d.profit,0),
+      cum:sl[sl.length-1].cum});
+  }
+  return w;
+}
+function toMonths(weeks){
+  const m=[];
+  for(let i=0;i<12;i++){
+    const sl=weeks.slice(i*4,i===11?52:(i+1)*4);
+    if(!sl.length)break;
+    m.push({month:i+1,weeks:sl,isA:sl.some(w=>w.isA),
+      nO:sl.reduce((s,w)=>s+w.nO,0),rO:sl.reduce((s,w)=>s+w.rO,0),
+      nR:sl.reduce((s,w)=>s+w.nR,0),rR:sl.reduce((s,w)=>s+w.rR,0),
+      tR:sl.reduce((s,w)=>s+w.tR,0),ac:sl.reduce((s,w)=>s+w.ac,0),
+      fu:sl.reduce((s,w)=>s+w.fu,0),profit:sl.reduce((s,w)=>s+w.profit,0),
+      cum:sl[sl.length-1].cum});
+  }
+  return m;
+}
+function getModel(cap,acquireDays){
+  const days=buildDays(cap,acquireDays);
+  const weeks=toWeeks(days);
+  const months=toMonths(weeks);
+  const maxNeg=Math.min(...days.map(d=>d.cum));
+  const beDay=days.findIndex((d,i)=>i>0&&d.cum>=0);
+  return{months,weeks,maxNeg,beDay:beDay>=0?beDay+1:null};
+}
+
+function slider(id,label,val,min,max,step,pre,suf){
+  return`<div class="slider-row">
+    <div class="slider-label"><span>${label}</span><span class="slider-val" id="v_${id}">${pre||'$'}${step<1?val.toFixed(1):val}${suf||''}</span></div>
+    <input type="range" id="s_${id}" min="${min}" max="${max}" step="${step}" value="${val}" oninput="upd('${id}',this.value)">
+  </div>`;
+}
+function upd(id,v){
+  const n=Number(v);
+  const map={cpa:'cpa',aov:'aov',rebill:'rebill',cogs:'cogs',ship:'ship',proc:'proc',m1ret:'m1ret',churn:'churn',cap:'cap',budget:'budget',testWks:'testWks'};
+  S[map[id]]=n;
+  const el=document.getElementById('v_'+id);
+  const pre={proc:'',m1ret:'',churn:'',cap:'',testWks:''}[id]??'$';
+  const suf={proc:'%',m1ret:'%',churn:'%',cap:'/day',testWks:' wks'}[id]??'';
+  const step={cogs:.5,proc:.5}[id]??1;
+  el.textContent=pre+(step<1?n.toFixed(1):n)+suf;
+  render();
+}
+
+function renderSliders(){
+  document.getElementById('sliders').innerHTML=
+    slider('cpa','CPA',S.cpa,60,120,1)+
+    slider('aov','Initial AOV',S.aov,40,100,1)+
+    slider('rebill','Rebill (28-day)',S.rebill,35,65,1)+
+    slider('cogs','COGS',S.cogs,5,15,.5)+
+    slider('ship','Shipping',S.ship,0,10,1)+
+    slider('proc','Processing %',S.proc,1,6,.5,'','%')+
+    `<div class="divider"><div class="section-label">Retention</div></div>`+
+    slider('m1ret','1st Rebill Retention',S.m1ret,40,90,1,'','%')+
+    slider('churn','Churn (per cycle)',S.churn,5,25,1,'','%')+
+    `<div class="divider"><div class="section-label">Volume</div></div>`+
+    slider('cap','Daily Cap',S.cap,10,1000,10,'','/day')+
+    (S.mode==='test'?slider('testWks','Test Duration',S.testWks,1,12,1,'',' wks'):'');
+}
+
+function card(label,val,sub,color,neg){
+  return`<div class="card"><div class="card-label">${label}</div>
+    <div class="card-val" style="color:${neg?'var(--red)':(color||'var(--gold)')}">${val}</div>
+    ${sub?`<div class="card-sub">${sub}</div>`:''}
+  </div>`;
+}
+
+function renderModel(model){
+  const {months,maxNeg,beDay}=model;
+  const beWeek=beDay?Math.ceil(beDay/7):null;
+  const beMo=months.findIndex(m=>m.cum>=0);
+  const beMoLbl=beMo>=0?`Month ${beMo+1}`:'12+';
+  const d1loss=S.aov-S.cpa-S.cogs-S.ship-(S.aov*S.proc/100);
+  const chartMax=Math.max(...months.map(m=>Math.abs(m.cum)),1);
+  const acqDays=S.mode==='test'?S.testWks*7:365;
+  const totalOrders=S.cap*(S.mode==='test'?acqDays:365);
+
+  let rows='';
+  months.forEach(m=>{
+    const exp=S.expanded[m.month];
+    const pos=m.profit>=0,cPos=m.cum>=0;
+    rows+=`<tr class="month-row" onclick="toggleMonth(${m.month})">
+      <td style="color:#6a6a6a;font-size:14px;width:20px;text-align:center">${exp?'&#9662;':'&#9656;'}</td>
+      <td style="color:${m.isA?'var(--gold)':'#8a8a8a'};font-weight:700">M${m.month}${m.isA?' &#9889;':''}</td>
+      <td style="color:${m.nO>0?'#e8e4df':'#4a4a4a'}">${m.nO>0?fmtI(m.nO):'&mdash;'}</td>
+      <td>${fmtI(m.rO)}</td>
+      <td style="font-weight:600">${fmtI(m.nO+m.rO)}</td>
+      <td>${m.nR>0?fmtK(m.nR):'&mdash;'}</td>
+      <td style="color:${m.rR>0?'var(--green)':'#4a4a4a'}">${m.rR>0?fmtK(m.rR):'&mdash;'}</td>
+      <td>${fmtK(m.tR)}</td>
+      <td style="color:${m.ac>0?'var(--red)':'#4a4a4a'}">${m.ac>0?fmtK(m.ac):'&mdash;'}</td>
+      <td>${fmtK(m.fu)}</td>
+      <td style="color:${pos?'var(--green)':'var(--red)'};font-weight:600">${fmtK(m.profit)}</td>
+      <td style="color:${cPos?'var(--green)':'var(--red)'};font-weight:700">${fmtK(m.cum)}</td>
+    </tr>`;
+    if(exp){
+      m.weeks.forEach(w=>{
+        const wp=w.profit>=0,wcp=w.cum>=0;
+        rows+=`<tr class="exp-row">
+          <td></td>
+          <td style="color:${w.isA?'rgba(201,169,110,.6)':'#5a5a5a'};padding-left:20px">W${w.week}</td>
+          <td>${w.nO>0?fmtI(w.nO):'&mdash;'}</td><td>${fmtI(w.rO)}</td>
+          <td>${fmtI(w.nO+w.rO)}</td>
+          <td>${w.nR>0?fmtK(w.nR):'&mdash;'}</td>
+          <td style="color:${w.rR>0?'rgba(90,158,111,.7)':'#3a3a3a'}">${w.rR>0?fmtK(w.rR):'&mdash;'}</td>
+          <td>${fmtK(w.tR)}</td>
+          <td style="color:${w.ac>0?'rgba(224,85,85,.7)':'#3a3a3a'}">${w.ac>0?fmtK(w.ac):'&mdash;'}</td>
+          <td>${fmtK(w.fu)}</td>
+          <td style="color:${wp?'rgba(90,158,111,.8)':'rgba(224,85,85,.8)'}">${fmtK(w.profit)}</td>
+          <td style="color:${wcp?'rgba(90,158,111,.8)':'rgba(224,85,85,.8)'}">${fmtK(w.cum)}</td>
+        </tr>`;
+      });
+    }
+  });
+
+  let bars='';
+  months.forEach(m=>{
+    const pct=Math.abs(m.cum)/chartMax,pos=m.cum>=0;
+    bars+=`<div class="bar-wrap">
+      <div class="bar-lbl" style="color:${pos?'var(--green)':'var(--red)'}">${fmtK(m.cum)}</div>
+      <div class="bar" style="height:${Math.max(pct*120,4)}px;background:${pos?'linear-gradient(180deg,#5a9e6f,#3d7a50)':'linear-gradient(180deg,#c05050,#9a3535)'};border:${m.isA?'1px solid rgba(201,169,110,.35)':'none'}"></div>
+      <div class="bar-month" style="color:${m.isA?'var(--gold)':'#6a6a6a'};font-weight:${m.isA?600:400}">M${m.month}</div>
+    </div>`;
+  });
+
+  return`
+    <div class="cards">
+      ${card('Day 1 P/L',fmt(d1loss),`Per order`,null,d1loss<0)}
+      ${card('Breakeven',beMoLbl,beWeek?`(Week ${beWeek})`:'',(beMo>=0&&beMo<4)?'var(--green)':'#e0a555')}
+      ${card('Peak Cash Needed',fmtK(Math.abs(maxNeg)),'Max cumulative deficit',null,true)}
+      ${S.mode==='test'?card('Test Orders',fmtI(totalOrders),`${S.testWks} wks &times; ${S.cap}/day`):card('Yr 1 Orders',fmtI(totalOrders),`${S.cap}/day &times; 365`)}
+    </div>
+    <div class="panel tbl-wrap" style="margin-bottom:18px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div>
+          <div style="font-size:13px;font-weight:600">12-Month P/L &ndash; ${S.mode==='test'?`Test Run (${S.testWks} wks)`:'Continuous Growth'}</div>
+          <div style="font-size:11px;color:#8a8a8a;margin-top:2px">Click any month to expand weekly breakdown</div>
+        </div>
+      </div>
+      <table><thead><tr>
+        <th></th><th>Month</th><th>New Orders</th><th>Rebill Subs</th><th>Total Active</th>
+        <th>New Rev</th><th>Rebill Rev</th><th>Total Rev</th><th>CPA Spend</th><th>Fulfillment</th>
+        <th>Monthly P/L</th><th>Cumulative</th>
+      </tr></thead><tbody>${rows}</tbody></table>
+    </div>
+    <div class="panel">
+      <div style="font-size:13px;font-weight:600;margin-bottom:12px">Cumulative P/L &ndash; 12 Months</div>
+      <div class="bar-area">${bars}</div>
+      ${S.mode==='test'?`<div style="font-size:10px;color:#6a6a6a;margin-top:8px;text-align:center">Gold border = acquiring &bull; After ${S.testWks} weeks, only rebills</div>`:''}
+    </div>`;
+}
+
+function renderEcon(){
+  const d1=S.aov-S.cpa-S.cogs-S.ship-(S.aov*S.proc/100);
+  const pr=S.proc/100,m1=S.m1ret/100;
+  const rebillMargin=S.rebill-S.cogs-S.ship-S.rebill*pr;
+  const payback=Math.ceil(Math.abs(d1)/rebillMargin);
+  const items=[
+    {label:'Revenue (AOV)',val:S.aov,c:'var(--green)'},
+    {label:'CPA',val:-S.cpa,c:'#c05050'},
+    {label:'COGS',val:-S.cogs,c:'#c05050'},
+    {label:'Shipping',val:-S.ship,c:'#c05050'},
+    {label:'Processing',val:-(S.aov*pr),c:'#c05050'},
+  ];
+  const maxV=Math.max(S.aov,S.cpa)*2;
+  let bars2='';
+  items.forEach(it=>{
+    const w=Math.abs(it.val)/maxV*100;
+    const left=it.val>=0?50:(50-w);
+    bars2+=`<div style="display:flex;align-items:center;margin-bottom:7px">
+      <div style="width:105px;font-size:12px;color:#8a8a8a">${it.label}</div>
+      <div style="flex:1;position:relative;height:20px">
+        <div style="position:absolute;left:${left}%;width:${w}%;height:100%;background:${it.c};border-radius:3px;opacity:.7"></div>
+      </div>
+      <div style="width:75px;text-align:right;font-size:12px;font-family:var(--mono);color:${it.val<0?'var(--red)':'var(--green)'};font-weight:600">${fmt(it.val)}</div>
+    </div>`;
+  });
+  return`
+    <div class="cards">
+      ${card('Day 1 Loss',fmt(Math.abs(d1)),'Per new order',null,true)}
+      ${card('Weekly CPA Burn',fmt(S.cap*7*S.cpa),`${fmtI(S.cap*7)} orders &times; $${S.cpa}`,null,true)}
+      ${card('1st Rebill Revenue',fmt(Math.round(S.cap*m1*S.rebill)),`Day 29: ${fmtI(Math.round(S.cap*m1))} subs &times; $${S.rebill}`,'var(--green)')}
+    </div>
+    <div class="panel" style="margin-bottom:18px">
+      <div style="font-size:13px;font-weight:600;margin-bottom:14px">Day 1 Unit Economics (Per Order)</div>
+      ${bars2}
+      <div style="border-top:1px solid rgba(255,255,255,.1);margin-top:8px;padding-top:8px;display:flex;justify-content:space-between">
+        <span style="font-weight:700;font-size:13px">Day 1 Margin</span>
+        <span style="font-weight:700;font-size:15px;font-family:var(--mono);color:${d1<0?'var(--red)':'var(--green)'}">${fmt(d1)}</span>
+      </div>
+    </div>
+    <div class="hint">
+      <strong style="color:var(--gold)">The subscription math:</strong> Jacob loses ${fmt(Math.abs(d1))} on every new order. But if ${S.m1ret}% rebill at $${S.rebill} on Day 29, each surviving subscriber generates ${fmt(rebillMargin)} in pure margin per cycle. It takes roughly ${payback} rebill cycles to recover the Day 1 loss &mdash; that's the payback period per customer.
+    </div>`;
+}
+
+function renderCaps(){
+  const unique=[...new Set(S.capInputs.filter(c=>c>0))].sort((a,b)=>a-b);
+  let capInputHTML='';
+  S.capInputs.forEach((v,i)=>{
+    capInputHTML+=`<div style="display:flex;align-items:center;gap:4px">
+      <input type="number" value="${v}" oninput="updCap(${i},this.value)" placeholder="cap">
+      ${S.capInputs.length>1?`<button class="rm-btn" onclick="rmCap(${i})">&times;</button>`:''}
+    </div>`;
+  });
+
+  let rows='';
+  unique.forEach(cap=>{
+    const td=buildDays(cap,S.testWks*7);
+    const tMN=Math.min(...td.map(d=>d.cum));
+    const tBE=td.findIndex((d,i)=>i>0&&d.cum>=0);
+    const cd=buildDays(cap,365);
+    const cMN=Math.min(...cd.map(d=>d.cum));
+    const cBE=cd.findIndex((d,i)=>i>0&&d.cum>=0);
+    const tOk=Math.abs(tMN)<=S.budget,cOk=Math.abs(cMN)<=S.budget;
+    rows+=`<tr>
+      <td style="color:var(--gold);font-weight:600">${fmtI(cap)}/day</td>
+      <td>${fmtI(cap*7)}</td>
+      <td>${tBE>=0?`Wk ${Math.ceil((tBE+1)/7)}`:'52+'}</td>
+      <td style="color:var(--red);font-weight:600">${fmtK(Math.abs(tMN))}</td>
+      <td>${cBE>=0?`Wk ${Math.ceil((cBE+1)/7)}`:'52+'}</td>
+      <td style="color:var(--red)">${fmtK(Math.abs(cMN))}</td>
+      <td>
+        <span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:9px;font-weight:600;background:${tOk?'rgba(90,158,111,.15)':'rgba(192,80,80,.15)'};color:${tOk?'var(--green)':'#c05050'}">${tOk?'&#10003; Test':'&#10007; Test'}</span>
+        <span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:9px;font-weight:600;background:${cOk?'rgba(90,158,111,.15)':'rgba(192,80,80,.15)'};color:${cOk?'var(--green)':'#c05050'}">${cOk?'&#10003; Cont':'&#10007; Cont'}</span>
+      </td>
+    </tr>`;
+  });
+
+  const bestTest=unique.filter(c=>{const d=buildDays(c,S.testWks*7);return Math.abs(Math.min(...d.map(x=>x.cum)))<=S.budget;});
+  const bestCont=unique.filter(c=>{const d=buildDays(c,365);return Math.abs(Math.min(...d.map(x=>x.cum)))<=S.budget;});
+
+  return`
+    <div class="cards">
+      ${card('Jacob\'s Budget',fmt(S.budget),'Total available cash')}
+      ${card('Best Cap (test)',bestTest.length>0?`${bestTest[bestTest.length-1]}/day`:'None',`${S.testWks}-wk test run`,'var(--green)')}
+      ${card('Best Cap (continuous)',bestCont.length>0?`${bestCont[bestCont.length-1]}/day`:'None','12-mo continuous','var(--green)')}
+    </div>
+    <div style="margin-bottom:14px">
+      ${slider('budget','Jacob\'s Available Funding',S.budget,5000,500000,5000)}
+    </div>
+    <div class="panel" style="margin-bottom:14px">
+      <div class="section-label">Custom Daily Caps</div>
+      <div class="cap-inputs" id="capInputsEl">${capInputHTML}</div>
+      ${S.capInputs.length<8?`<button class="add-btn" onclick="addCap()" style="margin-top:8px">+ Add</button>`:''}
+      <div class="cap-note">Type any daily cap. Duplicates ignored. Rows auto-sort lowest &rarr; highest.</div>
+    </div>
+    <div class="panel tbl-wrap">
+      <div style="font-size:13px;font-weight:600;margin-bottom:10px">Cap Scenarios at $${S.cpa} CPA</div>
+      <table><thead><tr>
+        <th>Daily Cap</th><th>Orders/Wk</th><th>Test BE (${S.testWks} wk)</th><th>Test Cash</th>
+        <th>Continuous BE</th><th>Cont. Cash</th><th>Fits Budget?</th>
+      </tr></thead><tbody>${rows}</tbody></table>
+    </div>
+    <div class="hint">
+      <strong style="color:var(--gold)">Recommendation:</strong> Start with the highest cap that fits Jacob's budget for a ${S.testWks}-week test. He gets real rebill data by Week ${S.testWks+4}. If retention validates at ${S.m1ret}%+, scale the cap or move to continuous. The test cash number is his real exposure &mdash; that's the check he's writing.
+    </div>`;
+}
+
+function renderTalking(testM){
+  const d1=S.aov-S.cpa-S.cogs-S.ship-(S.aov*S.proc/100);
+  const m1=S.m1ret/100;
+  const beMo=testM.months.findIndex(m=>m.cum>=0);
+  document.getElementById('talkingPoints').innerHTML=`
+    <div style="font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;font-weight:500">Talking Points &ndash; Wednesday Call</div>
+    <div style="font-size:13px;line-height:1.8;color:#b0aca6">
+      <p style="margin-bottom:10px"><strong style="color:#e8e4df">1. Day 1 loss: ${fmt(Math.abs(d1))}/order.</strong> At $${S.cpa} CPA / $${S.aov} AOV. Standard for subscription plays &mdash; Jacob expects 2&ndash;3 month payback.</p>
+      <p style="margin-bottom:10px"><strong style="color:#e8e4df">2. First rebills hit Day 29.</strong> ${fmtI(Math.round(S.cap*m1))} of every ${S.cap} daily orders survive to rebill at $${S.rebill}. That's ${fmt(Math.round(S.cap*m1)*S.rebill)}/day in pure rebill revenue.</p>
+      <p style="margin-bottom:10px"><strong style="color:#e8e4df">3. Test run: ${S.testWks} weeks, ${fmtK(Math.abs(testM.maxNeg))} cash needed.</strong> Breaks even ${beMo>=0?`Month ${beMo+1}`:'12+'}. Continuous acquisition needs ${fmtK(Math.abs(getModel(S.cap,365).maxNeg))} and breaks even later.</p>
+      <p><strong style="color:#e8e4df">4. Start capped, scale with data.</strong> Run ${S.testWks} weeks, validate Day 29 rebills, then decide. Two-tier CPA: $${S.cpa} for top buyers, $${S.cpa-10} for publishers.</p>
+    </div>`;
+}
+
+function toggleMonth(m){S.expanded[m]=!S.expanded[m];render();}
+function updCap(i,v){S.capInputs[i]=Math.max(0,parseInt(v)||0);render();}
+function rmCap(i){if(S.capInputs.length>1){S.capInputs.splice(i,1);render();}}
+function addCap(){if(S.capInputs.length<8){S.capInputs.push(100);render();}}
+function setMode(m){S.mode=m;render();}
+function setTab(t){S.tab=t;render();}
+
+function render(){
+  // Mode buttons
+  document.getElementById('modeBtns').innerHTML=
+    `<button class="modetab ${S.mode==='test'?'on':''}" onclick="setMode('test')">Test Run (${S.testWks} wks)</button>
+     <button class="modetab ${S.mode==='continuous'?'on':''}" onclick="setMode('continuous')">Continuous Growth (12 mo)</button>`;
+  document.getElementById('modeDesc').textContent=S.mode==='test'
+    ?`Acquire for ${S.testWks} weeks then stop. Watch rebills recover the investment over 12 months.`
+    :'Acquire every day for 12 months. Rebills from prior cohorts stack and eventually overtake acquisition costs.';
+
+  // Tabs
+  document.getElementById('tabBtns').innerHTML=
+    ['model','economics','caps'].map(t=>`<button class="tab ${S.tab===t?'on':''}" onclick="setTab('${t}')">${{model:'P/L Model',economics:'Unit Economics',caps:'Cap Scenarios'}[t]}</button>`).join('');
+
+  renderSliders();
+
+  const acquireDays=S.mode==='test'?S.testWks*7:365;
+  const model=getModel(S.cap,acquireDays);
+  const testModel=getModel(S.cap,S.testWks*7);
+
+  let html='';
+  if(S.tab==='model') html=renderModel(model);
+  else if(S.tab==='economics') html=renderEcon();
+  else html=renderCaps();
+  document.getElementById('mainContent').innerHTML=html;
+
+  renderTalking(testModel);
+}
+
+render();
+</script>
+</body>
+</html>
