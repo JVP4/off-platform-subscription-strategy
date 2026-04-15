@@ -327,7 +327,7 @@ function renderEcon(){
       </div>
     </div>
     <div class="hint">
-      <strong style="color:var(--gold)">The subscription math:</strong> Jacob loses ${fmt(Math.abs(d1))} on every new order. But if ${S.m1ret}% rebill at $${S.rebill} on Day 29, each surviving subscriber generates ${fmt(rebillMargin)} in pure margin per cycle. It takes roughly ${payback} rebill cycles to recover the Day 1 loss &mdash; that's the payback period per customer.
+      <strong style="color:var(--gold)">The subscription math:</strong> loses ${fmt(Math.abs(d1))} on every new order. But if ${S.m1ret}% rebill at $${S.rebill} on Day 29, each surviving subscriber generates ${fmt(rebillMargin)} in pure margin per cycle. It takes roughly ${payback} rebill cycles to recover the Day 1 loss &mdash; that's the payback period per customer.
     </div>`;
 }
 
@@ -369,12 +369,12 @@ function renderCaps(){
 
   return`
     <div class="cards">
-      ${card('Jacob\'s Budget',fmt(S.budget),'Total available cash')}
+      ${card('Budget',fmt(S.budget),'Total available cash')}
       ${card('Best Cap (test)',bestTest.length>0?`${bestTest[bestTest.length-1]}/day`:'None',`${S.testWks}-wk test run`,'var(--green)')}
       ${card('Best Cap (continuous)',bestCont.length>0?`${bestCont[bestCont.length-1]}/day`:'None','12-mo continuous','var(--green)')}
     </div>
     <div style="margin-bottom:14px">
-      ${slider('budget','Jacob\'s Available Funding',S.budget,5000,500000,5000)}
+      ${slider('budget','Available Funding',S.budget,5000,500000,5000)}
     </div>
     <div class="panel" style="margin-bottom:14px">
       <div class="section-label">Custom Daily Caps</div>
@@ -390,7 +390,7 @@ function renderCaps(){
       </tr></thead><tbody>${rows}</tbody></table>
     </div>
     <div class="hint">
-      <strong style="color:var(--gold)">Recommendation:</strong> Start with the highest cap that fits Jacob's budget for a ${S.testWks}-week test. He gets real rebill data by Week ${S.testWks+4}. If retention validates at ${S.m1ret}%+, scale the cap or move to continuous. The test cash number is his real exposure &mdash; that's the check he's writing.
+      <strong style="color:var(--gold)">Recommendation:</strong> Start with the highest cap that fits the budget for a ${S.testWks}-week test. He gets real rebill data by Week ${S.testWks+4}. If retention validates at ${S.m1ret}%+, scale the cap or move to continuous. The test cash number is his real exposure &mdash; that's the check he's writing.
     </div>`;
 }
 
@@ -399,9 +399,9 @@ function renderTalking(testM){
   const m1=S.m1ret/100;
   const beMo=testM.months.findIndex(m=>m.cum>=0);
   document.getElementById('talkingPoints').innerHTML=`
-    <div style="font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;font-weight:500">Talking Points &ndash; Wednesday Call</div>
+    <div style="font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;font-weight:500">SUMMARY</div>
     <div style="font-size:13px;line-height:1.8;color:#b0aca6">
-      <p style="margin-bottom:10px"><strong style="color:#e8e4df">1. Day 1 loss: ${fmt(Math.abs(d1))}/order.</strong> At $${S.cpa} CPA / $${S.aov} AOV. Standard for subscription plays &mdash; Jacob expects 2&ndash;3 month payback.</p>
+      <p style="margin-bottom:10px"><strong style="color:#e8e4df">1. Day 1 loss: ${fmt(Math.abs(d1))}/order.</strong> At $${S.cpa} CPA / $${S.aov} AOV. Standard for subscription plays &mdash; expect 2&ndash;3 month payback.</p>
       <p style="margin-bottom:10px"><strong style="color:#e8e4df">2. First rebills hit Day 29.</strong> ${fmtI(Math.round(S.cap*m1))} of every ${S.cap} daily orders survive to rebill at $${S.rebill}. That's ${fmt(Math.round(S.cap*m1)*S.rebill)}/day in pure rebill revenue.</p>
       <p style="margin-bottom:10px"><strong style="color:#e8e4df">3. Test run: ${S.testWks} weeks, ${fmtK(Math.abs(testM.maxNeg))} cash needed.</strong> Breaks even ${beMo>=0?`Month ${beMo+1}`:'12+'}. Continuous acquisition needs ${fmtK(Math.abs(getModel(S.cap,365).maxNeg))} and breaks even later.</p>
       <p><strong style="color:#e8e4df">4. Start capped, scale with data.</strong> Run ${S.testWks} weeks, validate Day 29 rebills, then decide. Two-tier CPA: $${S.cpa} for top buyers, $${S.cpa-10} for publishers.</p>
