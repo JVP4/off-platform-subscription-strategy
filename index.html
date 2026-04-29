@@ -183,13 +183,13 @@ function upd(id,v){
 function renderSliders(){
   document.getElementById('sliders').innerHTML=
     slider('cpa','CPA',S.cpa,20,300,1)+
-    slider('aov','Initial AOV',S.aov,40,100,1)+
-    slider('rebill','Rebill (28-day)',S.rebill,35,65,1)+
-    slider('cogs','COGS',S.cogs,5,15,.5)+
-    slider('ship','Shipping',S.ship,0,10,1)+
+    slider('aov','Initial AOV',S.aov,20,400,1)+
+    slider('rebill','Rebill (28-day)',S.rebill,20,200,1)+
+    slider('cogs','COGS',S.cogs,5,100,1)+
+    slider('ship','Shipping',S.ship,0,70,1)+
     slider('proc','Processing %',S.proc,1,6,.5,'','%')+
     `<div class="divider"><div class="section-label">Retention</div></div>`+
-    slider('m1ret','1st Rebill Retention',S.m1ret,40,90,1,'','%')+
+    slider('m1ret','1st Rebill Retention',S.m1ret,20,200,1,'','%')+
     slider('churn','Churn (per cycle)',S.churn,5,25,1,'','%')+
     `<div class="divider"><div class="section-label">Volume</div></div>`+
     slider('cap','Daily Cap',S.cap,10,1000,10,'','/day')+
