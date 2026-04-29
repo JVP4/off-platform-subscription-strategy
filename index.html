@@ -162,8 +162,10 @@ function getModel(cap,acquireDays){
 }
 
 function slider(id,label,val,min,max,step,pre,suf){
+  pre = pre ?? '$';
+  suf = suf ?? '';
   return`<div class="slider-row">
-    <div class="slider-label"><span>${label}</span><span class="slider-val" id="v_${id}">${pre||'$'}${step<1?val.toFixed(1):val}${suf||''}</span></div>
+    <div class="slider-label"><span>${label}</span><span class="slider-val" id="v_${id}">${pre}${step<1?val.toFixed(1):val}${suf}</span></div>
     <input type="range" id="s_${id}" min="${min}" max="${max}" step="${step}" value="${val}" oninput="upd('${id}',this.value)">
   </div>`;
 }
@@ -178,7 +180,6 @@ function upd(id,v){
   el.textContent=pre+(step<1?n.toFixed(1):n)+suf;
   render();
 }
-
 function renderSliders(){
   document.getElementById('sliders').innerHTML=
     slider('cpa','CPA',S.cpa,20,300,1)+
